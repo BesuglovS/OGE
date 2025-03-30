@@ -8,7 +8,7 @@ implementation
 
 type
   TNode = auto class
-    Symbol: Char;
+    sym: Char;
     Frequency: Integer;
     Left, Right: TNode;    
   end;
@@ -39,8 +39,8 @@ end;
 
 procedure GenerateCodes(Node: TNode; const Prefix: string; var Codes: TCodeDictionary);
 begin  
-  if Node.Symbol <> #0 then
-    Codes.Add(Node.Symbol, Prefix)
+  if Node.sym <> #0 then
+    Codes.Add(Node.sym, Prefix)
   else
   begin
     GenerateCodes(Node.Left, Prefix + '0', Codes);

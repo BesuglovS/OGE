@@ -7,6 +7,8 @@
     <Item Type="SourceFile" Name="oge02.pas" Path="oge02.pas" />
     <Item Type="SourceFile" Name="oge03.pas" Path="oge03.pas" />
     <Item Type="SourceFile" Name="war_peace.txt" Path="war_peace.txt" />
+    <Item Type="SourceFile" Name="oge04.pas" Path="oge04.pas" />
+    <Item Type="SourceFile" Name="logs.pas" Path="logs.pas" />
     <Item Type="Reference" AssemblyName="System" FullAssemblyName="System.dll" />
     <Item Type="Reference" AssemblyName="System.Windows.Forms" FullAssemblyName="System.Windows.Forms.dll" />
     <Item Type="Reference" AssemblyName="System.Drawing" FullAssemblyName="System.Drawing.dll" />

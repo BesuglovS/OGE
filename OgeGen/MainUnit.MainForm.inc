@@ -2,6 +2,8 @@ procedure InitializeComponent;
     begin
         var resources: System.ComponentModel.ComponentResourceManager := new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         self.groupBox1 := new System.Windows.Forms.GroupBox();
+        self.task04Count := new System.Windows.Forms.NumericUpDown();
+        self.label6 := new System.Windows.Forms.Label();
         self.task03Count := new System.Windows.Forms.NumericUpDown();
         self.label3 := new System.Windows.Forms.Label();
         self.task02Count := new System.Windows.Forms.NumericUpDown();
@@ -18,6 +20,7 @@ procedure InitializeComponent;
         self.label4 := new System.Windows.Forms.Label();
         self.Save := new System.Windows.Forms.Button();
         self.groupBox1.SuspendLayout();
+        (System.ComponentModel.ISupportInitialize(self.task04Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task03Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task02Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task01Count)).BeginInit();
@@ -28,6 +31,8 @@ procedure InitializeComponent;
         // 
         // groupBox1
         // 
+        self.groupBox1.Controls.Add(self.task04Count);
+        self.groupBox1.Controls.Add(self.label6);
         self.groupBox1.Controls.Add(self.task03Count);
         self.groupBox1.Controls.Add(self.label3);
         self.groupBox1.Controls.Add(self.task02Count);
@@ -41,13 +46,29 @@ procedure InitializeComponent;
         self.groupBox1.TabStop := false;
         self.groupBox1.Text := 'Количество заданий в варианте';
         // 
+        // task04Count
+        // 
+        self.task04Count.Location := new System.Drawing.Point(83, 36);
+        self.task04Count.Name := 'task04Count';
+        self.task04Count.Size := new System.Drawing.Size(71, 20);
+        self.task04Count.TabIndex := 7;
+        self.task04Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
+        // 
+        // label6
+        // 
+        self.label6.Location := new System.Drawing.Point(83, 16);
+        self.label6.Name := 'label6';
+        self.label6.Size := new System.Drawing.Size(71, 17);
+        self.label6.TabIndex := 6;
+        self.label6.Text := 'Задание 04';
+        // 
         // task03Count
         // 
         self.task03Count.Location := new System.Drawing.Point(6, 122);
         self.task03Count.Name := 'task03Count';
         self.task03Count.Size := new System.Drawing.Size(71, 20);
         self.task03Count.TabIndex := 5;
-        self.task03Count.Value := new System.Decimal(new System.Int32[4](2, 0, 0, 0));
+        self.task03Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
         // 
         // label3
         // 
@@ -63,7 +84,7 @@ procedure InitializeComponent;
         self.task02Count.Name := 'task02Count';
         self.task02Count.Size := new System.Drawing.Size(71, 20);
         self.task02Count.TabIndex := 3;
-        self.task02Count.Value := new System.Decimal(new System.Int32[4](2, 0, 0, 0));
+        self.task02Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
         // 
         // label2
         // 
@@ -79,7 +100,7 @@ procedure InitializeComponent;
         self.task01Count.Name := 'task01Count';
         self.task01Count.Size := new System.Drawing.Size(71, 20);
         self.task01Count.TabIndex := 1;
-        self.task01Count.Value := new System.Decimal(new System.Int32[4](2, 0, 0, 0));
+        self.task01Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
         // 
         // label1
         // 
@@ -185,6 +206,7 @@ procedure InitializeComponent;
         self.Text := 'Генератор вариантов ОГЭ';
         self.Load += MainForm_Load;
         self.groupBox1.ResumeLayout(false);
+        (System.ComponentModel.ISupportInitialize(self.task04Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task03Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task02Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task01Count)).EndInit();
