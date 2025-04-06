@@ -211,6 +211,17 @@ begin
   var tasks05 := GenerateTasksOge05(varCount * t05Count);
   
   var savepath := SaveFolder.Text;
+  var fn := SaveFilename.Text.TrimEnd;
+  var l5 := '';
+  try
+    l5 := fn[fn.Length - 4:fn.Length + 1].ToLower;
+  except
+    on exc: System.Exception do 
+      l5 := '';
+  end;
+  if l5 <> '.docx' then
+    fn += '.docx';
+  SaveFilename.Text := fn;
   var filename := SaveFilename.Text;
   var filePath := Path.Combine(savepath, filename);
   
