@@ -7,7 +7,7 @@ interface
 uses System, System.IO, System.Drawing, System.Windows.Forms, 
   DocumentFormat.OpenXml.Packaging,
   DocumentFormat.OpenXml.Wordprocessing,
-  oge01, oge02, oge03, oge04;
+  oge01, oge02, oge03, oge04, oge05;
 
 type
   MainForm = class(Form)
@@ -34,6 +34,8 @@ type
     label4: &Label;
     task04Count: NumericUpDown;
     label6: &Label;
+    task05Count: NumericUpDown;
+    label7: &Label;
     Save: Button;
     {$include MainUnit.MainForm.inc}
   {$endregion FormDesigner}
@@ -68,7 +70,7 @@ begin
 end;
 
 procedure AddPara(b: Body; str: string; fSize: integer; bld: boolean := False; 
-  just: string := '');
+  just: string := ''; keep_Next: boolean := false);
 begin
   var p: Paragraph;
   if just <> '' then
@@ -79,10 +81,17 @@ begin
     else if just = 'center' then
       j.Val := JustificationValues.Center;
     var pp := new ParagraphProperties(j);
+    if keep_Next then
+      pp.KeepNext := new KeepNext();
     p := new Paragraph(pp);
   end
   else
-    p := new Paragraph();
+  begin
+    var pp := new ParagraphProperties();
+    if keep_Next then
+      pp.KeepNext := new KeepNext();
+    p := new Paragraph(pp);
+  end;
   // Добавляем параграф с текстом
   var paragraph := b.AppendChild(p);
   var run := paragraph.AppendChild(new Run());    
@@ -131,6 +140,7 @@ begin
   
       // Создаем первую строку (заголовки)
   var row := table.AppendChild(new TableRow());
+  row.AppendChild(new TableRowProperties(new CantSplit()));
   
       // Пустая ячейка в левом верхнем углу
   row.Append(new TableCell(Cell1cm, new Paragraph(new Run(new wText('')))));
@@ -143,6 +153,7 @@ begin
   for var k := 0 to Length(vertices) - 1 do
   begin
     row := table.AppendChild(new TableRow());
+    row.AppendChild(new TableRowProperties(new CantSplit()));
     
         // Заголовок строки (вершина)
     row.Append(new TableCell(Cell1cm, new Paragraph(ppCenter, new Run(new wText(vertices[k])))));
@@ -191,11 +202,13 @@ begin
   var t02Count := integer(task02Count.Value);
   var t03Count := integer(task03Count.Value);  
   var t04Count := integer(task04Count.Value);    
+  var t05Count := integer(task05Count.Value);    
   
   var tasks01 := GenerateTasksOge01(varCount * t01Count);
   var tasks02 := GenerateTasksOge02(varCount * t02Count);
   var tasks03 := GenerateTasksOge03(varCount * t03Count);
   var tasks04 := GenerateTasksOge04(varCount * t04Count);
+  var tasks05 := GenerateTasksOge05(varCount * t05Count);
   
   var savepath := SaveFolder.Text;
   var filename := SaveFilename.Text;
@@ -237,36 +250,50 @@ begin
     
     for var i := 0 to t01Count - 1 do
     begin
-      AddPara(body, 'Задание № ' + taskNum.ToString + ' (01)', 32, true);
-      AddPara(body, tasks01[varNum * t01Count + i][0], 28, false, 'both');      
+      AddPara(body, 'Задание № ' + taskNum.ToString + ' (01)', 32, true, '', true);
+      var taskP := tasks01[varNum * t01Count + i][0].Split(#10);
+      foreach var p in taskP do
+        AddPara(body, p, 28, false, 'both');      
       taskNum += 1;
     end;
     
     for var i := 0 to t02Count - 1 do
     begin
-      AddPara(body, 'Задание № ' + taskNum.ToString + ' (02)', 32, true);
-      AddPara(body, tasks02[varNum * t02Count + i][0], 28, false, 'both');      
+      AddPara(body, 'Задание № ' + taskNum.ToString + ' (02)', 32, true, '', true);
+      var taskP := tasks02[varNum * t02Count + i][0].Split(#10);
+      foreach var p in taskP do
+        AddPara(body, p, 28, false, 'both');      
       taskNum += 1;
     end;
     
     for var i := 0 to t03Count - 1 do
     begin
-      AddPara(body, 'Задание № ' + taskNum.ToString + ' (03)', 32, true);
-      AddPara(body, tasks03[varNum * t03Count + i][0], 28, false, 'both');      
+      AddPara(body, 'Задание № ' + taskNum.ToString + ' (03)', 32, true, '', true);
+      var taskP := tasks03[varNum * t03Count + i][0].Split(#10);
+      foreach var p in taskP do
+        AddPara(body, p, 28, false, 'both');      
       taskNum += 1;
     end;
     
     for var i := 0 to t04Count - 1 do
     begin
-      AddPara(body, 'Задание № ' + taskNum.ToString + ' (04)', 32, true);
-      AddPara(body, tasks04[varNum * t04Count + i][0], 28, false, 'both');     
+      AddPara(body, 'Задание № ' + taskNum.ToString + ' (04)', 32, true, '', true);
+      var taskP := tasks04[varNum * t04Count + i][0].Split(#10);
+      foreach var p in taskP do
+        AddPara(body, p, 28, false, 'both');      
       
-      var d := tasks04[varNum * t04Count + i][1];
-      
+      var d := tasks04[varNum * t04Count + i][1];      
       AddTask04Table(body, d);
       
-      
-      
+      taskNum += 1;
+    end;
+    
+    for var i := 0 to t05Count - 1 do
+    begin
+      AddPara(body, 'Задание № ' + taskNum.ToString + ' (05)', 32, true, '', true);
+      var taskP := tasks05[varNum * t05Count + i][0].Split(#10);
+      foreach var p in taskP do
+        AddPara(body, p, 28, false, 'both');      
       taskNum += 1;
     end;
     
@@ -300,7 +327,7 @@ begin
   
   // Создаем строки и ячейки
   var row1 := new TableRow();
-    
+  
   var cell1 := new TableCell();  
   cell1.Append(new Paragraph(ppCenter, new Run(new wText('Вариант'))));
   row1.Append(cell1);
@@ -330,6 +357,13 @@ begin
       new wText($'№ {taskNum} (04)')))));
     taskNum += 1;
   end;
+  for var i := 1 to t05Count do  
+  begin
+    row1.Append(new TableCell(new Paragraph(ppCenter, new Run(
+      new wText($'№ {taskNum} (05)')))));
+    taskNum += 1;
+  end;
+  
   table.Append(row1);
   
   for var i := 1 to varCount do
@@ -360,6 +394,12 @@ begin
     begin
       row2.Append(new TableCell(tcp, new Paragraph(new Run(
           new wText(tasks04[(i - 1) * t04Count + j].Item3)))));
+    end;
+    
+    for var j := 0 to t05Count - 1 do  
+    begin
+      row2.Append(new TableCell(tcp, new Paragraph(new Run(
+          new wText(tasks05[(i - 1) * t05Count + j].Item2)))));
     end;
     
     table.Append(row2);

@@ -2,6 +2,8 @@ procedure InitializeComponent;
     begin
         var resources: System.ComponentModel.ComponentResourceManager := new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         self.groupBox1 := new System.Windows.Forms.GroupBox();
+        self.task05Count := new System.Windows.Forms.NumericUpDown();
+        self.label7 := new System.Windows.Forms.Label();
         self.task04Count := new System.Windows.Forms.NumericUpDown();
         self.label6 := new System.Windows.Forms.Label();
         self.task03Count := new System.Windows.Forms.NumericUpDown();
@@ -20,6 +22,7 @@ procedure InitializeComponent;
         self.label4 := new System.Windows.Forms.Label();
         self.Save := new System.Windows.Forms.Button();
         self.groupBox1.SuspendLayout();
+        (System.ComponentModel.ISupportInitialize(self.task05Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task04Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task03Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task02Count)).BeginInit();
@@ -31,6 +34,8 @@ procedure InitializeComponent;
         // 
         // groupBox1
         // 
+        self.groupBox1.Controls.Add(self.task05Count);
+        self.groupBox1.Controls.Add(self.label7);
         self.groupBox1.Controls.Add(self.task04Count);
         self.groupBox1.Controls.Add(self.label6);
         self.groupBox1.Controls.Add(self.task03Count);
@@ -45,6 +50,22 @@ procedure InitializeComponent;
         self.groupBox1.TabIndex := 0;
         self.groupBox1.TabStop := false;
         self.groupBox1.Text := 'Количество заданий в варианте';
+        // 
+        // task05Count
+        // 
+        self.task05Count.Location := new System.Drawing.Point(83, 79);
+        self.task05Count.Name := 'task05Count';
+        self.task05Count.Size := new System.Drawing.Size(71, 20);
+        self.task05Count.TabIndex := 9;
+        self.task05Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
+        // 
+        // label7
+        // 
+        self.label7.Location := new System.Drawing.Point(83, 59);
+        self.label7.Name := 'label7';
+        self.label7.Size := new System.Drawing.Size(71, 17);
+        self.label7.TabIndex := 8;
+        self.label7.Text := 'Задание 05';
         // 
         // task04Count
         // 
@@ -206,6 +227,7 @@ procedure InitializeComponent;
         self.Text := 'Генератор вариантов ОГЭ';
         self.Load += MainForm_Load;
         self.groupBox1.ResumeLayout(false);
+        (System.ComponentModel.ISupportInitialize(self.task05Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task04Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task03Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task02Count)).EndInit();

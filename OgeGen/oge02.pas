@@ -80,9 +80,7 @@ end;
 function GenerateTasksOge02(count: integer): List<(string, string)>;
 Begin
   var res := new List<(string, string)>();
-  var wds := ReadAllLines('war_peace.txt', Encoding.UTF8);
-  loop 1_000_000 do
-    Swap(wds[Random(wds.Length)], wds[Random(wds.Length)]);  
+  var wds := ReadAllLines('war_peace.txt', Encoding.UTF8).Shuffle;
   wds := wds.Take(count).ToArray;
   var lb := NewLine;
     
