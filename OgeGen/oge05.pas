@@ -113,7 +113,7 @@ begin
   
   var greeks := ['мю', 'ню', 'пи', 'кси', 'тау', 'пси', 'бета', 'тета', 'йота',
   'альфа', 'гамма', 'сигма', 'дельта', 'лямбда', 'эпсилон', 'омикрон', 'ипсилон'];
-  var greekLet := greeks[Random(greeks.Length)];
+  var greekLet := greeks[Random(greeks.Length)].ToUpper;
   var lb := NewLine;
   var question := $'У исполнителя {greekLet} две команды.' + lb;
   question += desc1 + lb;
