@@ -85,14 +85,14 @@ Begin
       if modes.Contains(1) then
         mode2 := 1
       else if modes.Contains(0) then
-        mode2 := 0;
+        mode2 := 0;      
       if mode2 = 0 then
       begin
         var data := Range(1, 300).ToArray.Where(x -> Eval(expr, x) = 'True');        
         var answ := data.Min;
         orig_expr := ReplaceOps(orig_expr);
         var task := 'Напишите наименьшее натуральное число x, ' + 
-        $'для которого {tf_str} высказывание {orig_expr}.';
+        $'для которого {tf_str} высказывание' + #10 + $'{orig_expr}.';
         res.add((task, answ.ToString));
         k += 1;
       end;
@@ -102,7 +102,7 @@ Begin
         var answ := data.Max;
         orig_expr := ReplaceOps(orig_expr);
         var task := $'Напишите наибольшее натуральное число x, ' + 
-        $'для которого {tf_str} высказывание {orig_expr}.';
+        $'для которого {tf_str} высказывание' + #10 + $'{orig_expr}.';
         res.add((task, answ.ToString));
         k += 1;
       end;      

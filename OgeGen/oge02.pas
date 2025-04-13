@@ -2,7 +2,7 @@
 
 interface
 
-function GenerateTasksOge02(count: integer): List<(string, string)>;
+function GenerateTasksOge02(count: integer): List<(string, Dictionary<char, string>, string, string)>;
 
 implementation
 
@@ -77,9 +77,9 @@ begin
   result := res;
 end;
 
-function GenerateTasksOge02(count: integer): List<(string, string)>;
+function GenerateTasksOge02(count: integer): List<(string, Dictionary<char, string>, string, string)>;
 Begin
-  var res := new List<(string, string)>();
+  var res := new List<(string, Dictionary<char, string>, string, string)>();
   var wds := ReadAllLines('war_peace.txt', Encoding.UTF8).Shuffle;
   wds := wds.Take(count).ToArray;
   var lb := NewLine;
@@ -97,9 +97,9 @@ Begin
     var task := 'От разведчика было получено сообщение ';
     task += EncodeString(w, Codes) + '.' + lb;
     task += 'В сообщении зашифрован пароль - последовательность русских букв.' + lb;
-    task += 'В коде есть только следующие буквы - ' + CodesToStringAlpha(Codes) + '.' + lb;
-    task += 'Расшифруйте пароль и запишите его в ответ.';
-    res.add((task, w));
+    task += 'В коде есть только буквы из таблицы.';
+    var task2 := 'Расшифруйте пароль и запишите его в ответ.';
+    res.add((task, Codes, task2, w));
   end;
   result := res;
 end;

@@ -7,7 +7,7 @@ interface
 uses System, System.IO, System.Drawing, System.Windows.Forms, 
   DocumentFormat.OpenXml.Packaging,
   DocumentFormat.OpenXml.Wordprocessing,
-  oge01, oge02, oge03, oge04, oge05;
+  oge01, oge02, oge03, oge04, oge05, oge06;
 
 type
   MainForm = class(Form)
@@ -36,6 +36,8 @@ type
     label6: &Label;
     task05Count: NumericUpDown;
     label7: &Label;
+    task06Count: NumericUpDown;
+    label8: &Label;
     Save: Button;
     {$include MainUnit.MainForm.inc}
   {$endregion FormDesigner}
@@ -67,6 +69,14 @@ begin
   begin
     SaveFolder.Text := dlg.SelectedPath;
   end;
+end;
+
+function tcp(): TableCellProperties;
+begin
+  var lm := new LeftMargin(); 
+  lm.Width := '170'; lm.Type := TableWidthUnitValues.Dxa;
+  var tcp := new TableCellProperties(new TableCellMargin(lm));
+  result := tcp;
 end;
 
 procedure AddPara(b: Body; str: string; fSize: integer; bld: boolean := False; 
@@ -112,6 +122,15 @@ begin
   result := new ParagraphProperties(just);
 end;
 
+function ppCenterKn(): ParagraphProperties;
+begin
+  var just := new Justification();
+  just.Val := JustificationValues.Center;
+  var pp := new ParagraphProperties(just);
+  pp.AppendChild(new KeepNext());
+  result := pp;
+end;
+
 function Cell1cm(): TableCellProperties;
 begin
   var tcw := new TableCellWidth();
@@ -119,6 +138,30 @@ begin
   tcw.Width := '567';
   var tcp := new TableCellProperties(tcw);
   result := tcp;  
+end;
+
+function ppsa0(): ParagraphProperties;
+begin
+  var sbl := new SpacingBetweenLines();
+  sbl.After := string('0');
+  var ppsa0 := new ParagraphProperties(sbl);
+  result := ppsa0; 
+end;
+
+function ppsa0Kn(): ParagraphProperties;
+begin
+  var sbl := new SpacingBetweenLines();
+  sbl.After := string('0');
+  var ppsa0 := new ParagraphProperties(sbl);
+  ppsa0.AppendChild(new KeepNext());
+  result := ppsa0; 
+end;
+
+function cstr(): TableRowProperties;
+begin
+  result := new TableRowProperties(
+    new CantSplit() // Запрещает разрыв строки таблицы
+  );
 end;
 
 procedure AddTask04Table(body: Body; d: Dictionary<string, integer>);
@@ -139,30 +182,28 @@ begin
   table.AppendChild(tableProperties);
   
       // Создаем первую строку (заголовки)
-  var row := table.AppendChild(new TableRow());
-  row.AppendChild(new TableRowProperties(new CantSplit()));
+  var row := table.AppendChild(new TableRow(cstr));
   
       // Пустая ячейка в левом верхнем углу
-  row.Append(new TableCell(Cell1cm, new Paragraph(new Run(new wText('')))));
+  row.Append(new TableCell(Cell1cm, new Paragraph(ppCenterKn, new Run(new wText('')))));
   
       // Заголовки столбцов (вершины)
   for var j := 0 to Length(vertices) - 1 do              
-    row.Append(new TableCell(Cell1cm, new Paragraph(ppCenter, new Run(new wText(vertices[j])))));
+    row.Append(new TableCell(Cell1cm, new Paragraph(ppCenterKn, new Run(new wText(vertices[j])))));
   
       // Заполняем таблицу связности
   for var k := 0 to Length(vertices) - 1 do
   begin
-    row := table.AppendChild(new TableRow());
-    row.AppendChild(new TableRowProperties(new CantSplit()));
+    row := table.AppendChild(new TableRow(cstr));
     
         // Заголовок строки (вершина)
-    row.Append(new TableCell(Cell1cm, new Paragraph(ppCenter, new Run(new wText(vertices[k])))));
+    row.Append(new TableCell(Cell1cm, new Paragraph(ppCenterKn, new Run(new wText(vertices[k])))));
     
         // Заполняем ячейки таблицы
     for var j := 0 to Length(vertices) - 1 do
     begin
       var cell := row.AppendChild(new TableCell(Cell1cm));
-      var paragraph := cell.AppendChild(new Paragraph(ppCenter));
+      var paragraph := cell.AppendChild(new Paragraph(ppCenterKn));
       var run := paragraph.AppendChild(new Run());
       var cellText := '';
       
@@ -187,13 +228,129 @@ begin
   end;
 end;
 
-function tcp(): TableCellProperties;
-begin
-  var lm := new LeftMargin(); 
-  lm.Width := '170'; lm.Type := TableWidthUnitValues.Dxa;
-  var tcp := new TableCellProperties(new TableCellMargin(lm));
-  result := tcp;
+
+
+procedure AddTask06Table(body: Body; progs: List<string>);
+begin  
+  // Создаем таблицу
+  var table := new Table();  
+  
+  // Настройки свойств таблицы
+  var tw := new TableWidth(); 
+  tw.Width := '5000'; tw.Type := TableWidthUnitValues.Pct;  
+  var u4: longword := 4;
+  var tb := new TopBorder(); tb.Val := BorderValues.Single; tb.Size := u4;
+  var bb := new BottomBorder(); bb.Val := BorderValues.Single; bb.Size := u4;
+  var lb := new LeftBorder(); lb.Val := BorderValues.Single; lb.Size := u4;
+  var rb := new RightBorder(); rb.Val := BorderValues.Single; rb.Size := u4;
+  var ihb := new InsideHorizontalBorder(); ihb.Val := BorderValues.Single; ihb.Size := u4;
+  var ivb := new InsideVerticalBorder(); ivb.Val := BorderValues.Single; ivb.Size := u4;
+  var borders := new TableBorders(tb, bb, lb, rb, ihb, ivb);
+  var tableProperties := new TableProperties(tw);  
+  tableProperties.Append(borders);
+  var tl := new TableLayout();
+  tl.Type := TableLayoutValues.Fixed;
+  tableProperties.Append(tl);
+  table.AppendChild(tableProperties);
+  
+  // Создаем первую строку
+  var row1 := new TableRow(cstr);  
+  var cell1 := new TableCell();  
+  cell1.Append(new Paragraph(ppCenterKn, new Run(new wText('Алгоритмический язык'))));
+  row1.Append(cell1);
+  var cell2 := new TableCell();  
+  cell2.Append(new Paragraph(ppCenterKn, new Run(new wText('Паскаль'))));
+  row1.Append(cell2);
+  table.Append(row1);
+  
+  // Создаем вторую строку
+  row1 := new TableRow(cstr);  
+  cell1 := new TableCell();  
+  var taskP := progs[0].Split(#10);
+  foreach var p in taskP do
+    cell1.Append(tcp, new Paragraph(ppsa0Kn, new Run(new wText(p))));      
+  row1.Append(cell1);
+  cell2 := new TableCell();  
+  taskP := progs[1].Split(#10);
+  foreach var p in taskP do
+    cell2.Append(tcp, new Paragraph(ppsa0Kn, new Run(new wText(p))));        
+  row1.Append(cell2);
+  table.Append(row1);
+  
+  // Создаем третью строку
+  row1 := new TableRow(cstr);  
+  cell1 := new TableCell();  
+  cell1.Append(new Paragraph(ppCenterKn, new Run(new wText('Python'))));
+  row1.Append(cell1);
+  cell2 := new TableCell();  
+  cell2.Append(new Paragraph(ppCenterKn, new Run(new wText('C++'))));
+  row1.Append(cell2);
+  table.Append(row1);
+  
+  // Создаем чётвёртую строку
+  row1 := new TableRow(cstr);  
+  cell1 := new TableCell();  
+  taskP := progs[2].Split(#10);
+  foreach var p in taskP do
+    cell1.Append(tcp, new Paragraph(ppsa0Kn, new Run(new wText(p))));      
+  row1.Append(cell1);
+  cell2 := new TableCell();  
+  taskP := progs[3].Split(#10);
+  foreach var p in taskP do
+    cell2.Append(tcp, new Paragraph(ppsa0Kn, new Run(new wText(p))));      
+  row1.Append(cell2);
+  table.Append(row1);
+  
+  body.Append(table);
 end;
+
+procedure AddTask02Table(body: Body; codes: Dictionary<char, string>);
+begin  
+  // Создаем таблицу
+  var table := new Table();  
+  
+  // Настройки свойств таблицы
+  var tw := new TableWidth(); 
+  tw.Width := '5000'; tw.Type := TableWidthUnitValues.Pct;  
+  var u4: longword := 4;
+  var tb := new TopBorder(); tb.Val := BorderValues.Single; tb.Size := u4;
+  var bb := new BottomBorder(); bb.Val := BorderValues.Single; bb.Size := u4;
+  var lb := new LeftBorder(); lb.Val := BorderValues.Single; lb.Size := u4;
+  var rb := new RightBorder(); rb.Val := BorderValues.Single; rb.Size := u4;
+  var ihb := new InsideHorizontalBorder(); ihb.Val := BorderValues.Single; ihb.Size := u4;
+  var ivb := new InsideVerticalBorder(); ivb.Val := BorderValues.Single; ivb.Size := u4;
+  var borders := new TableBorders(tb, bb, lb, rb, ihb, ivb);
+  var tableProperties := new TableProperties(tw);  
+  tableProperties.Append(borders);
+  var tl := new TableLayout();
+  tl.Type := TableLayoutValues.Fixed;
+  tableProperties.Append(tl);
+  table.AppendChild(tableProperties);
+  
+  // Создаем первую строку
+  var row1 := new TableRow(cstr);    
+  foreach var k in codes do
+  begin
+    var cell1 := new TableCell();
+    cell1.Append(new Paragraph(ppCenterKn, new Run(new wText(k.Key))));
+    row1.Append(cell1);
+  end;  
+  table.Append(row1);
+  
+  // Создаем вторую строку
+  var row2 := new TableRow(cstr);    
+  foreach var k in codes do
+  begin
+    var cell1 := new TableCell();
+    cell1.Append(new Paragraph(ppCenterKn, new Run(new wText(k.Value))));
+    row2.Append(cell1);
+  end;  
+  table.Append(row2);
+  
+  body.Append(table);
+end;
+
+
 
 procedure MainForm.Save_Click(sender: Object; e: EventArgs);
 begin
@@ -203,12 +360,14 @@ begin
   var t03Count := integer(task03Count.Value);  
   var t04Count := integer(task04Count.Value);    
   var t05Count := integer(task05Count.Value);    
+  var t06Count := integer(task06Count.Value);    
   
   var tasks01 := GenerateTasksOge01(varCount * t01Count);
   var tasks02 := GenerateTasksOge02(varCount * t02Count);
   var tasks03 := GenerateTasksOge03(varCount * t03Count);
   var tasks04 := GenerateTasksOge04(varCount * t04Count);
   var tasks05 := GenerateTasksOge05(varCount * t05Count);
+  var tasks06 := GenerateTasksOge06(varCount * t06Count);
   
   var savepath := SaveFolder.Text;
   var fn := SaveFilename.Text.TrimEnd;
@@ -274,6 +433,10 @@ begin
       var taskP := tasks02[varNum * t02Count + i][0].Split(#10);
       foreach var p in taskP do
         AddPara(body, p, 28, false, 'both');      
+      
+      AddTask02Table(body, tasks02[varNum * t02Count + i][1]);
+      
+      AddPara(body, tasks02[varNum * t02Count + i][2], 28, false, 'both', true);      
       taskNum += 1;
     end;
     
@@ -291,7 +454,7 @@ begin
       AddPara(body, 'Задание № ' + taskNum.ToString + ' (04)', 32, true, '', true);
       var taskP := tasks04[varNum * t04Count + i][0].Split(#10);
       foreach var p in taskP do
-        AddPara(body, p, 28, false, 'both');      
+        AddPara(body, p, 28, false, 'both', true);      
       
       var d := tasks04[varNum * t04Count + i][1];      
       AddTask04Table(body, d);
@@ -303,6 +466,19 @@ begin
     begin
       AddPara(body, 'Задание № ' + taskNum.ToString + ' (05)', 32, true, '', true);
       var taskP := tasks05[varNum * t05Count + i][0].Split(#10);
+      foreach var p in taskP do
+        AddPara(body, p, 28, false, 'both');      
+      taskNum += 1;
+    end;
+    
+    for var i := 0 to t06Count - 1 do
+    begin
+      AddPara(body, 'Задание № ' + taskNum.ToString + ' (06)', 32, true, '', true);
+      AddPara(body, tasks06[varNum * t05Count + i][0], 28, false, 'both', true);      
+      
+      AddTask06Table(body, tasks06[varNum * t05Count + i][1]);
+      
+      var taskP := tasks06[varNum * t06Count + i][2].Split(#10);
       foreach var p in taskP do
         AddPara(body, p, 28, false, 'both');      
       taskNum += 1;
@@ -373,6 +549,12 @@ begin
     row1.Append(new TableCell(new Paragraph(ppCenter, new Run(
       new wText($'№ {taskNum} (05)')))));
     taskNum += 1;
+  end;  
+  for var i := 1 to t06Count do  
+  begin
+    row1.Append(new TableCell(new Paragraph(ppCenter, new Run(
+      new wText($'№ {taskNum} (06)')))));
+    taskNum += 1;
   end;
   
   table.Append(row1);
@@ -392,7 +574,7 @@ begin
     for var j := 0 to t02Count - 1 do  
     begin
       row2.Append(new TableCell(tcp, new Paragraph(new Run(
-          new wText(tasks02[(i - 1) * t02Count + j].Item2)))));
+          new wText(tasks02[(i - 1) * t02Count + j].Item4)))));
     end;
     
     for var j := 0 to t03Count - 1 do  
@@ -411,6 +593,12 @@ begin
     begin
       row2.Append(new TableCell(tcp, new Paragraph(new Run(
           new wText(tasks05[(i - 1) * t05Count + j].Item2)))));
+    end;
+    
+    for var j := 0 to t06Count - 1 do  
+    begin
+      row2.Append(new TableCell(tcp, new Paragraph(new Run(
+          new wText(tasks06[(i - 1) * t06Count + j].Item4.ToString)))));
     end;
     
     table.Append(row2);
