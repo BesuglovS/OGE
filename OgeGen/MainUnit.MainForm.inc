@@ -2,6 +2,8 @@ procedure InitializeComponent;
     begin
         var resources: System.ComponentModel.ComponentResourceManager := new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         self.groupBox1 := new System.Windows.Forms.GroupBox();
+        self.task07Count := new System.Windows.Forms.NumericUpDown();
+        self.label9 := new System.Windows.Forms.Label();
         self.task06Count := new System.Windows.Forms.NumericUpDown();
         self.label8 := new System.Windows.Forms.Label();
         self.task05Count := new System.Windows.Forms.NumericUpDown();
@@ -24,6 +26,7 @@ procedure InitializeComponent;
         self.label4 := new System.Windows.Forms.Label();
         self.Save := new System.Windows.Forms.Button();
         self.groupBox1.SuspendLayout();
+        (System.ComponentModel.ISupportInitialize(self.task07Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task06Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task05Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task04Count)).BeginInit();
@@ -37,6 +40,8 @@ procedure InitializeComponent;
         // 
         // groupBox1
         // 
+        self.groupBox1.Controls.Add(self.task07Count);
+        self.groupBox1.Controls.Add(self.label9);
         self.groupBox1.Controls.Add(self.task06Count);
         self.groupBox1.Controls.Add(self.label8);
         self.groupBox1.Controls.Add(self.task05Count);
@@ -51,10 +56,26 @@ procedure InitializeComponent;
         self.groupBox1.Controls.Add(self.label1);
         self.groupBox1.Location := new System.Drawing.Point(12, 12);
         self.groupBox1.Name := 'groupBox1';
-        self.groupBox1.Size := new System.Drawing.Size(191, 159);
+        self.groupBox1.Size := new System.Drawing.Size(244, 159);
         self.groupBox1.TabIndex := 0;
         self.groupBox1.TabStop := false;
         self.groupBox1.Text := 'Количество заданий в варианте';
+        // 
+        // task07Count
+        // 
+        self.task07Count.Location := new System.Drawing.Point(160, 36);
+        self.task07Count.Name := 'task07Count';
+        self.task07Count.Size := new System.Drawing.Size(71, 20);
+        self.task07Count.TabIndex := 13;
+        self.task07Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
+        // 
+        // label9
+        // 
+        self.label9.Location := new System.Drawing.Point(160, 16);
+        self.label9.Name := 'label9';
+        self.label9.Size := new System.Drawing.Size(71, 17);
+        self.label9.TabIndex := 12;
+        self.label9.Text := 'Задание 07';
         // 
         // task06Count
         // 
@@ -155,7 +176,7 @@ procedure InitializeComponent;
         // groupBox2
         // 
         self.groupBox2.Controls.Add(self.varsCount);
-        self.groupBox2.Location := new System.Drawing.Point(209, 12);
+        self.groupBox2.Location := new System.Drawing.Point(262, 12);
         self.groupBox2.Name := 'groupBox2';
         self.groupBox2.Size := new System.Drawing.Size(147, 56);
         self.groupBox2.TabIndex := 1;
@@ -179,7 +200,7 @@ procedure InitializeComponent;
         self.groupBox3.Controls.Add(self.label4);
         self.groupBox3.Location := new System.Drawing.Point(12, 177);
         self.groupBox3.Name := 'groupBox3';
-        self.groupBox3.Size := new System.Drawing.Size(344, 100);
+        self.groupBox3.Size := new System.Drawing.Size(397, 100);
         self.groupBox3.TabIndex := 2;
         self.groupBox3.TabStop := false;
         self.groupBox3.Text := 'Сохранить как...';
@@ -188,7 +209,7 @@ procedure InitializeComponent;
         // 
         self.SaveFilename.Location := new System.Drawing.Point(6, 71);
         self.SaveFilename.Name := 'SaveFilename';
-        self.SaveFilename.Size := new System.Drawing.Size(332, 20);
+        self.SaveFilename.Size := new System.Drawing.Size(385, 20);
         self.SaveFilename.TabIndex := 9;
         self.SaveFilename.Text := 'ОГЭ.docx';
         // 
@@ -202,7 +223,7 @@ procedure InitializeComponent;
         // 
         // browseSaveFolder
         // 
-        self.browseSaveFolder.Location := new System.Drawing.Point(264, 32);
+        self.browseSaveFolder.Location := new System.Drawing.Point(317, 31);
         self.browseSaveFolder.Name := 'browseSaveFolder';
         self.browseSaveFolder.Size := new System.Drawing.Size(74, 20);
         self.browseSaveFolder.TabIndex := 7;
@@ -214,7 +235,7 @@ procedure InitializeComponent;
         // 
         self.SaveFolder.Location := new System.Drawing.Point(6, 32);
         self.SaveFolder.Name := 'SaveFolder';
-        self.SaveFolder.Size := new System.Drawing.Size(252, 20);
+        self.SaveFolder.Size := new System.Drawing.Size(305, 20);
         self.SaveFolder.TabIndex := 6;
         // 
         // label4
@@ -228,7 +249,7 @@ procedure InitializeComponent;
         // Save
         // 
         self.Save.Font := new System.Drawing.Font('Microsoft Sans Serif', 16, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (System.Byte(204)));
-        self.Save.Location := new System.Drawing.Point(209, 74);
+        self.Save.Location := new System.Drawing.Point(262, 74);
         self.Save.Name := 'Save';
         self.Save.Size := new System.Drawing.Size(147, 97);
         self.Save.TabIndex := 3;
@@ -238,7 +259,7 @@ procedure InitializeComponent;
         // 
         // MainForm
         // 
-        self.ClientSize := new System.Drawing.Size(370, 289);
+        self.ClientSize := new System.Drawing.Size(417, 284);
         self.Controls.Add(self.Save);
         self.Controls.Add(self.groupBox3);
         self.Controls.Add(self.groupBox2);
@@ -248,6 +269,7 @@ procedure InitializeComponent;
         self.Text := 'Генератор вариантов ОГЭ';
         self.Load += MainForm_Load;
         self.groupBox1.ResumeLayout(false);
+        (System.ComponentModel.ISupportInitialize(self.task07Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task06Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task05Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task04Count)).EndInit();
