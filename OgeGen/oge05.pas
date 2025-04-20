@@ -100,14 +100,22 @@ begin
       var opNum := Random(0, 1);
       while ops[opNum] = '' do opNum := Random(0, 1);
       
-      answer := ops[opNum];
-      letter := ['d', 'f', 'g', 'q', 'r', 's', 'u', 'v', 'z', 'x']
-        .ToArray[Random(0, 9)];
-      ops[opNum] := letter;
-      
-      desc1 := $'1) {action1[1]} {ops[0]}';
-      desc2 := $'2) {action2[1]} {ops[1]}';
-      break;
+      if ((opNum = 0) and (action1.Item1 in '*/') and (opSeq.CountOf('1') > 2)) or
+      ((opNum = 1) and (action2.Item1 in '*/') and (opSeq.CountOf('2') > 2)) then
+      begin
+        ok := False;
+      end
+      else
+      begin
+        answer := ops[opNum];
+        letter := ['d', 'f', 'g', 'q', 'r', 's', 'u', 'v', 'z', 'x']
+          .ToArray[Random(0, 9)];
+        ops[opNum] := letter;
+        
+        desc1 := $'1) {action1[1]} {ops[0]}';
+        desc2 := $'2) {action2[1]} {ops[1]}';
+        break;
+      end;
     end;
   end;
   
