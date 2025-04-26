@@ -47,7 +47,7 @@ end;
 function GenerateTasksOge06(count: integer): List<(string, List<string>, string, integer)>;
 begin
   var lb := NewLine;
-  var tAlgo := 
+  var tAlgo_t := 
   'алг' + lb + 
   'нач' + lb + 
   'цел x, y' + lb + 
@@ -58,7 +58,7 @@ begin
   #160#160'иначе вывод "НЕТ"' + lb + 
   'все' + lb + 
   'кон';
-  var tPascal := 
+  var tPascal_t := 
   'var x, y: integer;' + lb + 
   'begin' + lb + 
   #160#160#160#160'readln(x);' + lb + 
@@ -67,14 +67,14 @@ begin
   #160#160#160#160'then writeln("ДА")' + lb + 
   #160#160#160#160'else writeln("НЕТ")' + lb + 
   'end.';
-  var tPython := 
+  var tPython_t := 
   'x = int(input())' + lb + 
   'y = int(input())' + lb + 
   'if *****:' + lb + 
   #160#160#160#160'print("ДА")' + lb + 
   'else:' + lb + 
   #160#160#160#160'print("НЕТ")';
-  var tCpp := 
+  var tCpp_t := 
   '#include <iostream>' + lb + 
   'using namespace std;' + lb + 
   'int main() {' + lb + 
@@ -92,10 +92,10 @@ begin
   for var i := 1 to count do
   begin
     var exprs := LangExprs(RandExpr());  
-    tAlgo := tAlgo.Replace('*****', exprs[0]);
-    tPascal := tPascal.Replace('*****', exprs[1]);
-    tPython := tPython.Replace('*****', exprs[2]);
-    tCpp := tCpp.Replace('*****', exprs[3]);
+    var tAlgo := tAlgo_t.Replace('*****', exprs[0]);
+    var tPascal := tPascal_t.Replace('*****', exprs[1]);
+    var tPython := tPython_t.Replace('*****', exprs[2]);
+    var tCpp := tCpp_t.Replace('*****', exprs[3]);
     var progs := [tAlgo, tPascal, tPython, tCpp].ToList;
     
     var RunsCount := Random(9, 11);

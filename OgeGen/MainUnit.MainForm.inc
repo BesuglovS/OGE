@@ -67,7 +67,6 @@ procedure InitializeComponent;
         self.task07Count.Name := 'task07Count';
         self.task07Count.Size := new System.Drawing.Size(71, 20);
         self.task07Count.TabIndex := 13;
-        self.task07Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
         // 
         // label9
         // 
@@ -83,7 +82,7 @@ procedure InitializeComponent;
         self.task06Count.Name := 'task06Count';
         self.task06Count.Size := new System.Drawing.Size(71, 20);
         self.task06Count.TabIndex := 11;
-        self.task06Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
+        self.task06Count.Value := new System.Decimal(new System.Int32[4](2, 0, 0, 0));
         // 
         // label8
         // 
@@ -99,7 +98,6 @@ procedure InitializeComponent;
         self.task05Count.Name := 'task05Count';
         self.task05Count.Size := new System.Drawing.Size(71, 20);
         self.task05Count.TabIndex := 9;
-        self.task05Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
         // 
         // label7
         // 
@@ -115,7 +113,6 @@ procedure InitializeComponent;
         self.task04Count.Name := 'task04Count';
         self.task04Count.Size := new System.Drawing.Size(71, 20);
         self.task04Count.TabIndex := 7;
-        self.task04Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
         // 
         // label6
         // 
@@ -131,7 +128,6 @@ procedure InitializeComponent;
         self.task03Count.Name := 'task03Count';
         self.task03Count.Size := new System.Drawing.Size(71, 20);
         self.task03Count.TabIndex := 5;
-        self.task03Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
         // 
         // label3
         // 
@@ -147,7 +143,6 @@ procedure InitializeComponent;
         self.task02Count.Name := 'task02Count';
         self.task02Count.Size := new System.Drawing.Size(71, 20);
         self.task02Count.TabIndex := 3;
-        self.task02Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
         // 
         // label2
         // 
@@ -163,7 +158,6 @@ procedure InitializeComponent;
         self.task01Count.Name := 'task01Count';
         self.task01Count.Size := new System.Drawing.Size(71, 20);
         self.task01Count.TabIndex := 1;
-        self.task01Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
         // 
         // label1
         // 
@@ -189,7 +183,7 @@ procedure InitializeComponent;
         self.varsCount.Name := 'varsCount';
         self.varsCount.Size := new System.Drawing.Size(71, 20);
         self.varsCount.TabIndex := 6;
-        self.varsCount.Value := new System.Decimal(new System.Int32[4](25, 0, 0, 0));
+        self.varsCount.Value := new System.Decimal(new System.Int32[4](3, 0, 0, 0));
         // 
         // groupBox3
         // 
