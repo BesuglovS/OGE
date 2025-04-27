@@ -14,6 +14,7 @@ type
     procedure browseSaveFolder_Click(sender: Object; e: EventArgs);
     procedure MainForm_Load(sender: Object; e: EventArgs);
     procedure Save_Click(sender: Object; e: EventArgs);
+    procedure all1_Click(sender: Object; e: EventArgs);
   {$region FormDesigner}
   internal
     {$resource MainUnit.MainForm.resources}
@@ -40,6 +41,9 @@ type
     label8: &Label;
     task07Count: NumericUpDown;
     label9: &Label;
+    task08Count: NumericUpDown;
+    label10: &Label;
+    all1: Button;
     Save: Button;
     {$include MainUnit.MainForm.inc}
   {$endregion FormDesigner}
@@ -398,6 +402,64 @@ begin
   body.Append(table);
 end;
 
+procedure AddTask08Table(body: Body; sets: List<(string, string)>);
+begin  
+  // Создаем таблицу
+  var table := new Table();  
+  
+  // Настройки свойств таблицы
+  var tw := new TableWidth(); 
+  tw.Width := '5000'; tw.Type := TableWidthUnitValues.Pct;  
+  var u4: longword := 4;
+  var tb := new TopBorder(); tb.Val := BorderValues.Single; tb.Size := u4;
+  var bb := new BottomBorder(); bb.Val := BorderValues.Single; bb.Size := u4;
+  var lb := new LeftBorder(); lb.Val := BorderValues.Single; lb.Size := u4;
+  var rb := new RightBorder(); rb.Val := BorderValues.Single; rb.Size := u4;
+  var ihb := new InsideHorizontalBorder(); ihb.Val := BorderValues.Single; ihb.Size := u4;
+  var ivb := new InsideVerticalBorder(); ivb.Val := BorderValues.Single; ivb.Size := u4;
+  var borders := new TableBorders(tb, bb, lb, rb, ihb, ivb);
+  var tableProperties := new TableProperties(tw);  
+  tableProperties.Append(borders);
+  var tl := new TableLayout();
+  tl.Type := TableLayoutValues.Fixed;
+  tableProperties.Append(tl);
+  table.AppendChild(tableProperties);
+  
+  // Создаем первую строку
+  var row1 := new TableRow(cstr);    
+  
+  var cell1 := new TableCell();
+  cell1.Append(new Paragraph(ppCenterKn, new Run(new wText('Запрос'))));
+  row1.Append(cell1);
+  
+  var cell2 := new TableCell();
+  cell2.Append(new Paragraph(ppCenterKn, new Run(new wText('Найдено страниц'))));
+  row1.Append(cell2);
+  
+  table.Append(row1);
+  
+  // Создаем вторую строку
+      
+  foreach var st in sets do
+  begin
+    var row2 := new TableRow(cstr);
+    
+    var c1 := new TableCell();
+    c1.Append(tcp, new Paragraph(new Run(new wText(st.Item1))));
+    row2.Append(c1);
+    
+    var c2 := new TableCell();
+    c2.Append(new Paragraph(ppCenterKn, new Run(new wText(st.Item2))));
+    row2.Append(c2);
+    
+    table.Append(row2);
+  end;  
+  
+  
+  body.Append(table);
+end;
+
+
 
 
 procedure MainForm.Save_Click(sender: Object; e: EventArgs);
@@ -409,8 +471,8 @@ begin
   var t04Count := integer(task04Count.Value);    
   var t05Count := integer(task05Count.Value);    
   var t06Count := integer(task06Count.Value);    
-  var t07Count := integer(task07Count.Value);    
-//  var t08Count := integer(task08Count.Value);    
+  var t07Count := integer(task07Count.Value);
+  var t08Count := integer(task08Count.Value);
   
   var tasks01 := GenerateTasksOge01(varCount * t01Count);
   var tasks02 := GenerateTasksOge02(varCount * t02Count);
@@ -419,7 +481,7 @@ begin
   var tasks05 := GenerateTasksOge05(varCount * t05Count);
   var tasks06 := GenerateTasksOge06(varCount * t06Count);
   var tasks07 := GenerateTasksOge07(varCount * t07Count);
-//  var tasks08 := GenerateTasksOge08(varCount * t08Count);
+  var tasks08 := GenerateTasksOge08(varCount * t08Count);
   
   var savepath := SaveFolder.Text;
   var fn := SaveFilename.Text.TrimEnd;
@@ -549,6 +611,19 @@ begin
       taskNum += 1;
     end;
     
+    for var i := 0 to t08Count - 1 do
+    begin
+      AddPara(body, 'Задание № ' + taskNum.ToString + ' (08)', 32, true, '', true);
+      var taskP := tasks08[varNum * t08Count + i][0].Split(#10);      
+      AddPara(body, taskP[0], 28, false, 'both');      
+      AddPara(body, taskP[1], 28, false);      
+      
+      AddTask08Table(body, tasks08[varNum * t08Count + i][1]);
+      
+      AddPara(body, tasks08[varNum * t08Count + i][2], 28, false);
+      taskNum += 1;
+    end;
+    
     // Разрыв страницы
     var breakPara := body.AppendChild(new Paragraph());
     var breakRun := breakPara.AppendChild(new Run());
@@ -629,6 +704,13 @@ begin
     taskNum += 1;
   end;
   
+  for var i := 1 to t08Count do  
+  begin
+    row1.Append(new TableCell(new Paragraph(ppCenter, new Run(
+      new wText($'№ {taskNum} (08)')))));
+    taskNum += 1;
+  end;
+  
   table.Append(row1);
   
   for var i := 1 to varCount do
@@ -679,6 +761,12 @@ begin
           new wText(tasks07[(i - 1) * t07Count + j].Item3.ToString)))));
     end;
     
+    for var j := 0 to t08Count - 1 do  
+    begin
+      row2.Append(new TableCell(tcp, new Paragraph(new Run(
+          new wText(tasks08[(i - 1) * t08Count + j].Item4.ToString)))));
+    end;
+    
     table.Append(row2);
   end;
   
@@ -687,6 +775,18 @@ begin
   
   // Закрываем документ
   doc.Dispose();
+end;
+
+procedure MainForm.all1_Click(sender: Object; e: EventArgs);
+begin
+  task01Count.Value := 1;
+  task02Count.Value := 1;
+  task03Count.Value := 1;
+  task04Count.Value := 1;
+  task05Count.Value := 1;
+  task06Count.Value := 1;
+  task07Count.Value := 1;
+  task08Count.Value := 1;
 end;
 
 end.

@@ -2,6 +2,8 @@ procedure InitializeComponent;
     begin
         var resources: System.ComponentModel.ComponentResourceManager := new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         self.groupBox1 := new System.Windows.Forms.GroupBox();
+        self.task08Count := new System.Windows.Forms.NumericUpDown();
+        self.label10 := new System.Windows.Forms.Label();
         self.task07Count := new System.Windows.Forms.NumericUpDown();
         self.label9 := new System.Windows.Forms.Label();
         self.task06Count := new System.Windows.Forms.NumericUpDown();
@@ -25,7 +27,9 @@ procedure InitializeComponent;
         self.SaveFolder := new System.Windows.Forms.TextBox();
         self.label4 := new System.Windows.Forms.Label();
         self.Save := new System.Windows.Forms.Button();
+        self.all1 := new System.Windows.Forms.Button();
         self.groupBox1.SuspendLayout();
+        (System.ComponentModel.ISupportInitialize(self.task08Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task07Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task06Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task05Count)).BeginInit();
@@ -40,6 +44,8 @@ procedure InitializeComponent;
         // 
         // groupBox1
         // 
+        self.groupBox1.Controls.Add(self.task08Count);
+        self.groupBox1.Controls.Add(self.label10);
         self.groupBox1.Controls.Add(self.task07Count);
         self.groupBox1.Controls.Add(self.label9);
         self.groupBox1.Controls.Add(self.task06Count);
@@ -60,6 +66,21 @@ procedure InitializeComponent;
         self.groupBox1.TabIndex := 0;
         self.groupBox1.TabStop := false;
         self.groupBox1.Text := 'Количество заданий в варианте';
+        // 
+        // task08Count
+        // 
+        self.task08Count.Location := new System.Drawing.Point(160, 79);
+        self.task08Count.Name := 'task08Count';
+        self.task08Count.Size := new System.Drawing.Size(71, 20);
+        self.task08Count.TabIndex := 15;
+        // 
+        // label10
+        // 
+        self.label10.Location := new System.Drawing.Point(160, 59);
+        self.label10.Name := 'label10';
+        self.label10.Size := new System.Drawing.Size(71, 17);
+        self.label10.TabIndex := 14;
+        self.label10.Text := 'Задание 08';
         // 
         // task07Count
         // 
@@ -82,7 +103,6 @@ procedure InitializeComponent;
         self.task06Count.Name := 'task06Count';
         self.task06Count.Size := new System.Drawing.Size(71, 20);
         self.task06Count.TabIndex := 11;
-        self.task06Count.Value := new System.Decimal(new System.Int32[4](2, 0, 0, 0));
         // 
         // label8
         // 
@@ -183,7 +203,7 @@ procedure InitializeComponent;
         self.varsCount.Name := 'varsCount';
         self.varsCount.Size := new System.Drawing.Size(71, 20);
         self.varsCount.TabIndex := 6;
-        self.varsCount.Value := new System.Decimal(new System.Int32[4](3, 0, 0, 0));
+        self.varsCount.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
         // 
         // groupBox3
         // 
@@ -243,17 +263,29 @@ procedure InitializeComponent;
         // Save
         // 
         self.Save.Font := new System.Drawing.Font('Microsoft Sans Serif', 16, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (System.Byte(204)));
-        self.Save.Location := new System.Drawing.Point(262, 74);
+        self.Save.Location := new System.Drawing.Point(262, 126);
         self.Save.Name := 'Save';
-        self.Save.Size := new System.Drawing.Size(147, 97);
+        self.Save.Size := new System.Drawing.Size(147, 45);
         self.Save.TabIndex := 3;
         self.Save.Text := 'Сохранить';
         self.Save.UseVisualStyleBackColor := true;
         self.Save.Click += Save_Click;
         // 
+        // all1
+        // 
+        self.all1.Font := new System.Drawing.Font('Microsoft Sans Serif', 10, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (System.Byte(204)));
+        self.all1.Location := new System.Drawing.Point(262, 74);
+        self.all1.Name := 'all1';
+        self.all1.Size := new System.Drawing.Size(147, 45);
+        self.all1.TabIndex := 4;
+        self.all1.Text := 'Все задачи по 1';
+        self.all1.UseVisualStyleBackColor := true;
+        self.all1.Click += all1_Click;
+        // 
         // MainForm
         // 
         self.ClientSize := new System.Drawing.Size(417, 284);
+        self.Controls.Add(self.all1);
         self.Controls.Add(self.Save);
         self.Controls.Add(self.groupBox3);
         self.Controls.Add(self.groupBox2);
@@ -263,6 +295,7 @@ procedure InitializeComponent;
         self.Text := 'Генератор вариантов ОГЭ';
         self.Load += MainForm_Load;
         self.groupBox1.ResumeLayout(false);
+        (System.ComponentModel.ISupportInitialize(self.task08Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task07Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task06Count)).EndInit();
         (System.ComponentModel.ISupportInitialize(self.task05Count)).EndInit();
