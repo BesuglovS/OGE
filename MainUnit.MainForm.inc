@@ -28,6 +28,8 @@ procedure InitializeComponent;
         self.label4 := new System.Windows.Forms.Label();
         self.Save := new System.Windows.Forms.Button();
         self.all1 := new System.Windows.Forms.Button();
+        self.task10Count := new System.Windows.Forms.NumericUpDown();
+        self.label11 := new System.Windows.Forms.Label();
         self.groupBox1.SuspendLayout();
         (System.ComponentModel.ISupportInitialize(self.task08Count)).BeginInit();
         (System.ComponentModel.ISupportInitialize(self.task07Count)).BeginInit();
@@ -40,10 +42,13 @@ procedure InitializeComponent;
         self.groupBox2.SuspendLayout();
         (System.ComponentModel.ISupportInitialize(self.varsCount)).BeginInit();
         self.groupBox3.SuspendLayout();
+        (System.ComponentModel.ISupportInitialize(self.task10Count)).BeginInit();
         self.SuspendLayout();
         // 
         // groupBox1
         // 
+        self.groupBox1.Controls.Add(self.task10Count);
+        self.groupBox1.Controls.Add(self.label11);
         self.groupBox1.Controls.Add(self.task08Count);
         self.groupBox1.Controls.Add(self.label10);
         self.groupBox1.Controls.Add(self.task07Count);
@@ -282,6 +287,22 @@ procedure InitializeComponent;
         self.all1.UseVisualStyleBackColor := true;
         self.all1.Click += all1_Click;
         // 
+        // task10Count
+        // 
+        self.task10Count.Location := new System.Drawing.Point(160, 122);
+        self.task10Count.Name := 'task10Count';
+        self.task10Count.Size := new System.Drawing.Size(71, 20);
+        self.task10Count.TabIndex := 17;
+        self.task10Count.Value := new System.Decimal(new System.Int32[4](1, 0, 0, 0));
+        // 
+        // label11
+        // 
+        self.label11.Location := new System.Drawing.Point(160, 102);
+        self.label11.Name := 'label11';
+        self.label11.Size := new System.Drawing.Size(71, 17);
+        self.label11.TabIndex := 16;
+        self.label11.Text := 'Задание 10';
+        // 
         // MainForm
         // 
         self.ClientSize := new System.Drawing.Size(417, 284);
@@ -307,5 +328,6 @@ procedure InitializeComponent;
         (System.ComponentModel.ISupportInitialize(self.varsCount)).EndInit();
         self.groupBox3.ResumeLayout(false);
         self.groupBox3.PerformLayout();
+        (System.ComponentModel.ISupportInitialize(self.task10Count)).EndInit();
         self.ResumeLayout(false);
     end;

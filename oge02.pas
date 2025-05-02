@@ -7,10 +7,10 @@ function GenerateTasksOge02(count: integer): List<(string, Dictionary<char, stri
 implementation
 
 type
-  TNode = auto class
-    sym: Char;
+  TNode = auto class    
+    s: Char;
     Frequency: Integer;
-    Left, Right: TNode;    
+    Left, Right: TNode;        
   end;
   
   TCodeDictionary = Dictionary<Char, string>;
@@ -39,8 +39,8 @@ end;
 
 procedure GenerateCodes(Node: TNode; const Prefix: string; var Codes: TCodeDictionary);
 begin  
-  if Node.sym <> #0 then
-    Codes.Add(Node.sym, Prefix)
+  if Node.s <> #0 then
+    Codes.Add(Node.s, Prefix)
   else
   begin
     GenerateCodes(Node.Left, Prefix + '0', Codes);

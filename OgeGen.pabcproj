@@ -13,6 +13,8 @@
     <Item Type="SourceFile" Name="oge06.pas" Path="oge06.pas" />
     <Item Type="SourceFile" Name="oge07.pas" Path="oge07.pas" />
     <Item Type="SourceFile" Name="oge08.pas" Path="oge08.pas" />
+    <Item Type="SourceFile" Name="oge09.pas" Path="oge09.pas" />
+    <Item Type="SourceFile" Name="oge10.pas" Path="oge10.pas" />
     <Item Type="Reference" AssemblyName="System" FullAssemblyName="System.dll" />
     <Item Type="Reference" AssemblyName="System.Windows.Forms" FullAssemblyName="System.Windows.Forms.dll" />
     <Item Type="Reference" AssemblyName="System.Drawing" FullAssemblyName="System.Drawing.dll" />
